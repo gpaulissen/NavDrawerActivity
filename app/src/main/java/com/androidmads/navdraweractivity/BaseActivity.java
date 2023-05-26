@@ -18,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class BaseActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
 
     protected DrawerLayout drawer;
     private FloatingActionButton fab;
@@ -35,7 +35,7 @@ public class BaseActivity extends AppCompatActivity
         this.checkedItem = checkedItem;
         this.name = name;
         this.menuResourceId = menuResourceId;
-        this.actionResourceId = actionResourceId;        
+        this.actionResourceId = actionResourceId;
     }
         
     @Override
@@ -92,17 +92,13 @@ public class BaseActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }   
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    //    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.nav_activity1) {
-            startAnimatedActivity(new Intent(getApplicationContext(), FirstActivity.class));
-        } else if (id == R.id.nav_activity2) {
-            startAnimatedActivity(new Intent(getApplicationContext(), SecondActivity.class));
-        }
+        final int id = item.getItemId();
+        final Class cls = AllActivities.classMap.get(id);
 
-        // drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        startAnimatedActivity(new Intent(getApplicationContext(), cls));
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
